@@ -119,7 +119,7 @@ func TestRouteConvertPrometheusPostRuleGroup(t *testing.T) {
 		require.Equal(t, http.StatusAccepted, response.Status())
 
 		// Get the rules
-		remaining, err := ruleStore.ListAlertRules(context.Background(), &models.ListAlertRulesQuery{
+		remaining, _, err := ruleStore.ListAlertRules(context.Background(), &models.ListAlertRulesQuery{
 			OrgID: 1,
 		})
 		require.NoError(t, err)
@@ -300,7 +300,7 @@ func TestRouteConvertPrometheusPostRuleGroup(t *testing.T) {
 		response := srv.RouteConvertPrometheusPostRuleGroup(rc, "test", simpleGroup)
 		require.Equal(t, http.StatusAccepted, response.Status())
 
-		rules, err := ruleStore.ListAlertRules(context.Background(), &models.ListAlertRulesQuery{
+		rules, _, err := ruleStore.ListAlertRules(context.Background(), &models.ListAlertRulesQuery{
 			OrgID: 1,
 		})
 		require.NoError(t, err)
@@ -329,7 +329,7 @@ func TestRouteConvertPrometheusPostRuleGroup(t *testing.T) {
 		response := srv.RouteConvertPrometheusPostRuleGroup(rc, "test", simpleGroup)
 		require.Equal(t, http.StatusAccepted, response.Status())
 
-		rules, err := ruleStore.ListAlertRules(context.Background(), &models.ListAlertRulesQuery{
+		rules, _, err := ruleStore.ListAlertRules(context.Background(), &models.ListAlertRulesQuery{
 			OrgID: 1,
 		})
 		require.NoError(t, err)
@@ -461,7 +461,7 @@ func TestRouteConvertPrometheusPostRuleGroup(t *testing.T) {
 		require.Equal(t, http.StatusAccepted, response.Status())
 
 		// Get the created rules
-		rules, err := ruleStore.ListAlertRules(context.Background(), &models.ListAlertRulesQuery{
+		rules, _, err := ruleStore.ListAlertRules(context.Background(), &models.ListAlertRulesQuery{
 			OrgID: 1,
 		})
 		require.NoError(t, err)
@@ -515,7 +515,7 @@ func TestRouteConvertPrometheusPostRuleGroup(t *testing.T) {
 		response := srv.RouteConvertPrometheusPostRuleGroup(rc, "test", simpleGroup)
 		require.Equal(t, http.StatusAccepted, response.Status())
 
-		remaining, err := ruleStore.ListAlertRules(context.Background(), &models.ListAlertRulesQuery{
+		remaining, _, err := ruleStore.ListAlertRules(context.Background(), &models.ListAlertRulesQuery{
 			OrgID: 1,
 		})
 		require.NoError(t, err)
@@ -556,7 +556,7 @@ func TestRouteConvertPrometheusPostRuleGroup(t *testing.T) {
 		response := srv.RouteConvertPrometheusPostRuleGroup(rc, "test", simpleGroup)
 		require.Equal(t, http.StatusAccepted, response.Status())
 
-		createdRules, err := ruleStore.ListAlertRules(context.Background(), &models.ListAlertRulesQuery{
+		createdRules, _, err := ruleStore.ListAlertRules(context.Background(), &models.ListAlertRulesQuery{
 			OrgID: 1,
 		})
 		require.NoError(t, err)
@@ -1378,7 +1378,7 @@ func TestRouteConvertPrometheusPostRuleGroups(t *testing.T) {
 		require.Equal(t, http.StatusAccepted, response.Status())
 
 		// Verify the rules were created
-		rules, err := ruleStore.ListAlertRules(req.Req.Context(), &models.ListAlertRulesQuery{
+		rules, _, err := ruleStore.ListAlertRules(req.Req.Context(), &models.ListAlertRulesQuery{
 			OrgID: req.GetOrgID(),
 		})
 		require.NoError(t, err)
@@ -1427,7 +1427,7 @@ func TestRouteConvertPrometheusPostRuleGroups(t *testing.T) {
 		require.Equal(t, http.StatusAccepted, response.Status())
 
 		// Verify the rules were created
-		rules, err := ruleStore.ListAlertRules(req.Req.Context(), &models.ListAlertRulesQuery{
+		rules, _, err := ruleStore.ListAlertRules(req.Req.Context(), &models.ListAlertRulesQuery{
 			OrgID: req.GetOrgID(),
 		})
 		require.NoError(t, err)
@@ -1452,7 +1452,7 @@ func TestRouteConvertPrometheusPostRuleGroups(t *testing.T) {
 		require.Equal(t, http.StatusAccepted, response.Status())
 
 		// Verify the rules were created
-		rules, err := ruleStore.ListAlertRules(req.Req.Context(), &models.ListAlertRulesQuery{
+		rules, _, err := ruleStore.ListAlertRules(req.Req.Context(), &models.ListAlertRulesQuery{
 			OrgID: req.GetOrgID(),
 		})
 		require.NoError(t, err)
@@ -1477,7 +1477,7 @@ func TestRouteConvertPrometheusPostRuleGroups(t *testing.T) {
 		require.Equal(t, http.StatusAccepted, response.Status())
 
 		// Verify the rules were created
-		rules, err := ruleStore.ListAlertRules(req.Req.Context(), &models.ListAlertRulesQuery{
+		rules, _, err := ruleStore.ListAlertRules(req.Req.Context(), &models.ListAlertRulesQuery{
 			OrgID: req.GetOrgID(),
 		})
 		require.NoError(t, err)
@@ -1508,7 +1508,7 @@ func TestRouteConvertPrometheusPostRuleGroups(t *testing.T) {
 		require.Equal(t, http.StatusAccepted, response.Status())
 
 		// Verify the rules were created
-		rules, err := ruleStore.ListAlertRules(req.Req.Context(), &models.ListAlertRulesQuery{
+		rules, _, err := ruleStore.ListAlertRules(req.Req.Context(), &models.ListAlertRulesQuery{
 			OrgID: req.GetOrgID(),
 		})
 

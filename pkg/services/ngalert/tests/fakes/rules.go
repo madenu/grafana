@@ -268,16 +268,18 @@ func (f *RuleStore) ListAlertRulesByGroup(_ context.Context, q *models.ListAlert
 	return outputRules, nextToken, nil
 }
 
-func (f *RuleStore) ListAlertRules(_ context.Context, q *models.ListAlertRulesQuery) (models.RulesGroup, error) {
+// TODO: implement pagination for this fake
+func (f *RuleStore) ListAlertRules(_ context.Context, q *models.ListAlertRulesQuery) (models.RulesGroup, string, error) {
 	f.mtx.Lock()
 	defer f.mtx.Unlock()
 	f.RecordedOps = append(f.RecordedOps, *q)
 
 	if err := f.Hook(*q); err != nil {
-		return nil, err
+		return nil, "", err
 	}
 
-	return f.listAlertRules(q)
+	result, err := f.listAlertRules(q)
+	return result, "", err
 }
 
 func (f *RuleStore) listAlertRules(q *models.ListAlertRulesQuery) (models.RulesGroup, error) {
