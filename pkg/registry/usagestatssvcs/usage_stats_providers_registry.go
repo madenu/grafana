@@ -1,15 +1,15 @@
 package usagestatssvcs
 
 import (
-	acdatabase "github.com/grafana/grafana/pkg/extensions/accesscontrol/database"
 	"github.com/grafana/grafana/pkg/registry"
 	"github.com/grafana/grafana/pkg/services/accesscontrol"
+	acdatabase "github.com/grafana/grafana/pkg/services/accesscontrol/database"
 	"github.com/grafana/grafana/pkg/services/user"
 )
 
 func ProvideUsageStatsProvidersRegistry(
 	accesscontrol accesscontrol.Service,
-	acDB *acdatabase.AccessControlStore,
+	acDB acdatabase.AccessControlStore,
 	user user.Service,
 ) *UsageStatsProvidersRegistry {
 	// TODO this change breaks wire generation

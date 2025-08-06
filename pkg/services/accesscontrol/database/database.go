@@ -42,7 +42,11 @@ const (
 	WHERE br.role = ?`
 )
 
-func ProvideService(sql db.DB) *AccessControlStore {
+func ProvideService(sql db.DB) (*AccessControlStore, error) {
+	return ProvideAccessControlStore(sql), nil
+}
+
+func ProvideAccessControlStore(sql db.DB) *AccessControlStore {
 	return &AccessControlStore{
 		sql:    sql,
 		logger: log.New("accesscontrol.store"),

@@ -58,7 +58,7 @@ func ProvideService(
 ) (*Service, error) {
 	service := ProvideOSSService(
 		cfg,
-		database.ProvideService(db),
+		database.ProvideAccessControlStore(db),
 		actionResolver,
 		cache,
 		features,
@@ -116,9 +116,10 @@ type Service struct {
 	permRegistry   permreg.PermissionRegistry
 }
 
-func (s *Service) GetUsageStats(_ context.Context) map[string]any {
+func (s *Service) GetUsageStats(ctx context.Context) map[string]any {
 	return map[string]any{
 		"stats.oss.accesscontrol.enabled.count": 1,
+		"fpp":                                   s.store.GetUserPermissions(ctx),
 	}
 }
 

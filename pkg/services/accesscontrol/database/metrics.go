@@ -8,7 +8,7 @@ import (
 )
 
 // countZanzanaTuples returns the number of tuples stored with zanzana
-func (ac *AccessControlStore) countZanzanaTuples(ctx context.Context) (map[string]interface{}, error) {
+func (s *AccessControlStore) countZanzanaTuples(ctx context.Context) (map[string]interface{}, error) {
 	// TODO figure out where these metrics are exposed... don't seem to be on http://localhost:3000/metrics
 	// TODO test this with standalone mode as well (or embedded, idk what i'm running now)
 	query := `SELECT COUNT(*) as count FROM tuple` // TODO maybe don't need the alias
@@ -17,7 +17,7 @@ func (ac *AccessControlStore) countZanzanaTuples(ctx context.Context) (map[strin
 		Count int64
 	}
 
-	err := ac.sql.WithDbSession(ctx, func(sess *db.Session) error {
+	err := s.sql.WithDbSession(ctx, func(sess *db.Session) error {
 		if _, err := sess.SQL(query).Get(&result); err != nil {
 			return err
 		}
@@ -32,16 +32,16 @@ func (ac *AccessControlStore) countZanzanaTuples(ctx context.Context) (map[strin
 	}, nil
 }
 
-func (ac *AccessControlStore) GetUsageStats(ctx context.Context) map[string]interface{} {
+func (s *AccessControlStore) GetUsageStats(ctx context.Context) map[string]any {
 	metricsMap := make(map[string]interface{})
 	collectFuncs := map[string]func(context.Context) (map[string]any, error){
-		"countZanzanaTuples": ac.countZanzanaTuples,
+		"countZanzanaTuples": s.countZanzanaTuples,
 	}
 
 	for name, fn := range collectFuncs {
 		stats, err := fn(ctx)
 		if err != nil {
-			ac.logger.Error("error in func %s: %e", name, err)
+			s.logger.Error("error in func %s: %e", name, err)
 			continue
 		}
 		maps.Copy(metricsMap, stats)

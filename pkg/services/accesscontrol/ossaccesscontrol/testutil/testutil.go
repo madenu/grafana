@@ -53,7 +53,7 @@ func ProvideFolderPermissions(
 		nil, sqlStore, features, supportbundlestest.NewFakeBundleService(), nil, cfg, nil, tracing.InitializeTracerForTest(), nil, dualwrite.ProvideTestService(), sort.ProvideService(), apiserver.WithoutRestConfig)
 
 	acSvc := acimpl.ProvideOSSService(
-		cfg, acdb.ProvideService(sqlStore), actionSets, localcache.ProvideService(),
+		cfg, acdb.ProvideAccessControlStore(sqlStore), actionSets, localcache.ProvideService(),
 		features, tracing.InitializeTracerForTest(), sqlStore, permreg.ProvidePermissionRegistry(),
 		nil,
 	)
